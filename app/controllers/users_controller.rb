@@ -14,8 +14,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = 'User was created succesfully'
-      redirect_to user_path(@user)
+      flash[:success] = 'Welcome'
+      redirect_to articles_path
     else
       render :new
     end
@@ -26,9 +26,10 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:success] = 'User was successfully updated'
-      redirect_to user_path(@user)
+      flash[:success] = 'User successfully updated'
+      redirect_to articles_path
     else
       render :edit
     end
@@ -44,6 +45,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 end
